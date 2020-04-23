@@ -15,8 +15,9 @@ public class Cell : MonoBehaviour
     public Board mBoard = null;
     [HideInInspector]
     public RectTransform mRectTransform = null;
+    public BasePiece mCurrentPiece = null;
 
-    public void setup(Vector2Int newBoardPos, Board newBoard)
+    public void Setup(Vector2Int newBoardPos, Board newBoard)
     {
         mBoardPos = newBoardPos;
         mBoard = newBoard;
@@ -24,15 +25,4 @@ public class Cell : MonoBehaviour
         mRectTransform = GetComponent<RectTransform>();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

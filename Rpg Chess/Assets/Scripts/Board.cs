@@ -21,7 +21,7 @@ public class Board : MonoBehaviour
                 rectTransform.anchoredPosition = new Vector2((x * 100) + 50, (y * 100) + 50);
                 //setup
                 mAllCells[x, y] = newCell.GetComponent<Cell>();
-                mAllCells[x, y].setup(new Vector2Int(x, y), this);
+                mAllCells[x, y].Setup(new Vector2Int(x, y), this);
             }
         }
 
@@ -38,15 +38,5 @@ public class Board : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

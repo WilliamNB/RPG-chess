@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2429314567111979859
+--- !u!1 &4057295545008799569
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,26 +8,26 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7606704055881979696}
-  - component: {fileID: 9131560312291101590}
-  - component: {fileID: -2338108948973829030}
-  - component: {fileID: 8743924235789375247}
-  - component: {fileID: 5882728654585389330}
+  - component: {fileID: 4057295545008799568}
+  - component: {fileID: 4057295545008799573}
+  - component: {fileID: 4057295545008799570}
+  - component: {fileID: 4057295545008799571}
+  - component: {fileID: 1482667503877291333}
   m_Layer: 5
-  m_Name: Board-P
+  m_Name: PieceManager-P
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &7606704055881979696
+--- !u!224 &4057295545008799568
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2429314567111979859}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 4057295545008799569}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -36,16 +36,16 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 400, y: 50}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -800, y: -100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!223 &9131560312291101590
+--- !u!223 &4057295545008799573
 Canvas:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2429314567111979859}
+  m_GameObject: {fileID: 4057295545008799569}
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
@@ -60,27 +60,13 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &-2338108948973829030
+--- !u!114 &4057295545008799570
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2429314567111979859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5594322c35b9f7244b66618c0dc23f0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mCellPrefab: {fileID: 8188722615569104253, guid: 6cd26ca230be129479bd011ac0da7e68,
-    type: 3}
---- !u!114 &8743924235789375247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2429314567111979859}
+  m_GameObject: {fileID: 4057295545008799569}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
@@ -96,13 +82,13 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &5882728654585389330
+--- !u!114 &4057295545008799571
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2429314567111979859}
+  m_GameObject: {fileID: 4057295545008799569}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
@@ -113,3 +99,17 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1482667503877291333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4057295545008799569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5344b9c095be8d42b9681f2dcc5f525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mPiecePrefab: {fileID: 4591875963289492334, guid: e53bf431c1c00384ba9b000e531abfc9,
+    type: 3}
