@@ -60,7 +60,21 @@ public class BasePiece: EventTrigger
             currentXPos += xDirection;
             currentYPos += yDirection;
 
-            //TODO: GET STATE OF TARGET CELL
+            //GET STATE OF TARGET CELL
+            CellSate cellState = CellSate.None;
+            cellState = currentCell.mBoard.ValidateCell(currentXPos, currentYPos, this);
+
+            if(cellState == CellSate.Enemy)
+            {
+                mHighLightedCells.Add(currentCell.mBoard.mAllCells[currentXPos, currentYPos]);
+                break;
+            }
+
+            if(cellState != CellSate.Free)
+            {
+                break;
+            }
+
 
             mHighLightedCells.Add(currentCell.mBoard.mAllCells[currentXPos, currentYPos]);
         }
@@ -159,7 +173,9 @@ public class BasePiece: EventTrigger
 
         Move();
 
-        //TODO: end turn
+        //end turn
+
+        mPieceManager.SwitchSides(mColor);
     }
 
 }

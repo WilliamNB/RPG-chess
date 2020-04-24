@@ -1,6 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+public enum CellSate 
+{
+    None,
+    Friendly,
+    Enemy,
+    Free,
+    OutOfBounds
+}
+
+
 public class Board : MonoBehaviour
 {
 
@@ -38,5 +48,32 @@ public class Board : MonoBehaviour
         }
     }
 
+    public CellSate ValidateCell(int targetX, int targetY, BasePiece checkingPiece)
+    {
+        //bounds check
+        if(targetX < 0 || targetX > 7)
+        {
+            return CellSate.OutOfBounds;
+        }
+        if (targetY < 0 || targetY > 7)
+        {
+            return CellSate.OutOfBounds;
+        }
 
+        Cell targetCell = mAllCells[targetX, targetY];
+
+        if(targetCell.mCurrentPiece != null)
+        {
+            if(checkingPiece.mColor == targetCell.mCurrentPiece.mColor)
+            {
+                return CellSate.Friendly;
+            }
+            if (checkingPiece.mColor != targetCell.mCurrentPiece.mColor)
+            {
+                return CellSate.Enemy;
+            }
+        }
+
+        return CellSate.Free;
+    }
 }
