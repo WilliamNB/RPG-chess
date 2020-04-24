@@ -14,7 +14,7 @@ public class BasePiece: EventTrigger
     protected Cell targetCell = null;
 
     RectTransform mRectTransform = null;
-    PieceManager mPieceManager;
+    protected PieceManager mPieceManager;
 
     protected Vector3Int mMovement = Vector3Int.one;
     protected List<Cell> mHighLightedCells = new List<Cell>();
@@ -125,7 +125,7 @@ public class BasePiece: EventTrigger
         ShowCells();
     }
 
-    protected virtual void Move()
+    public virtual void Move()
     {
         //if enemy piece, remove
         targetCell.RemovePiece();
