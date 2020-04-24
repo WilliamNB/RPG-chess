@@ -11,6 +11,7 @@ public class BasePiece: EventTrigger
 
     protected Cell originalCell = null;
     protected Cell currentCell = null;
+    protected Cell targetCell = null;
 
     RectTransform mRectTransform = null;
     PieceManager mPieceManager;
@@ -34,6 +35,18 @@ public class BasePiece: EventTrigger
 
         transform.position = newCell.transform.position;
         gameObject.SetActive(true);
+    }
+    public void Reset()
+    {
+        Kill();
+
+        Place(originalCell);
+    }
+
+    public virtual void Kill()
+    {
+        currentCell.mCurrentPiece = null;
+        gameObject.SetActive(false);
     }
 
     private void CreateCellPath(int xDirection, int yDirection, int movement)
@@ -98,12 +111,37 @@ public class BasePiece: EventTrigger
         ShowCells();
     }
 
+    protected virtual void Move()
+    {
+        //if enemy piece, remove
+        targetCell.RemovePiece();
+        //clear current cell
+        currentCell.mCurrentPiece = null;
+        //switch cells
+        currentCell = targetCell;
+        currentCell.mCurrentPiece = this;
+        //move on board
+        transform.position = currentCell.transform.position;
+        targetCell = null;
+    }
+
     public override void OnDrag(PointerEventData eventData)
     {
         Debug.Log("in onDrag");
         base.OnDrop(eventData);
         //follow pointer
         transform.position += (Vector3)eventData.delta;
+        //check for overlapping aviable squares
+        foreach(Cell cell in mHighLightedCells)
+        {
+            if (RectTransformUtility.RectangleContainsScreenPoint(cell.mRectTransform, Input.mousePosition))
+            {
+                targetCell = cell;
+                break;
+            }
+            // if mouse is not in a highlighted cell we dont have a valid move
+            targetCell = null;
+        }
     }
 
     public override void OnEndDrag(PointerEventData eventData)
@@ -112,6 +150,16 @@ public class BasePiece: EventTrigger
 
         ClearCells();
 
+        //return cell to original pos if no target cell
+        if (!targetCell)
+        {
+            transform.position = currentCell.gameObject.transform.position;
+            return;
+        }
+
+        Move();
+
+        //TODO: end turn
     }
 
 }
