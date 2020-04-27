@@ -24,7 +24,7 @@ public class Pawn : BasePiece
 
         firstMove = false;
     }
-
+    
     private bool MatchesState(int targetX, int targetY, CellSate targetState)
     {
         CellSate cellstate = CellSate.None;
@@ -37,7 +37,7 @@ public class Pawn : BasePiece
         }
         return false;
     }
-
+    
     protected override void CheckPathing()
     {
         int currentX = currentCell.mBoardPos.x;

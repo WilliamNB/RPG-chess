@@ -17,8 +17,13 @@ public class BasePiece: EventTrigger
     protected PieceManager mPieceManager;
 
     protected Vector3Int mMovement = Vector3Int.one;
+    protected Vector3Int mMovement2 = Vector3Int.one;
     protected List<Cell> mHighLightedCells = new List<Cell>();
 
+    protected int level = 1;
+    protected int branch = 0;
+
+    //PieceMangare not createpiece
     public virtual void Setup(Color newTeamColor, Color32 newSpriteColor, PieceManager newPieceManager)
     {
         mPieceManager = newPieceManager;
@@ -49,9 +54,8 @@ public class BasePiece: EventTrigger
         gameObject.SetActive(false);
     }
 
-    private void CreateCellPath(int xDirection, int yDirection, int movement)
+    private void CreateCellPath(int xDirection, int yDirection, int movement) 
     {
-        Debug.Log("in create path");
         int currentXPos = currentCell.mBoardPos.x;
         int currentYPos = currentCell.mBoardPos.y;
 
@@ -78,11 +82,36 @@ public class BasePiece: EventTrigger
 
             mHighLightedCells.Add(currentCell.mBoard.mAllCells[currentXPos, currentYPos]);
         }
+
+
+    }
+
+    private void CreateCellPathLv2(int xDirection, int yDirection, int movement)
+    {
+        int currentXPos = currentCell.mBoardPos.x;
+        int currentYPos = currentCell.mBoardPos.y;
+
+        for (int i = 1; i <= movement; i++)
+        {
+            currentXPos += xDirection;
+            currentYPos += yDirection;
+
+            //GET STATE OF TARGET CELL
+            CellSate cellState = CellSate.None;
+            cellState = currentCell.mBoard.ValidateCell(currentXPos, currentYPos, this);
+
+            if (cellState != CellSate.Free)
+            {
+                break;
+            }
+
+
+            mHighLightedCells.Add(currentCell.mBoard.mAllCells[currentXPos, currentYPos]);
+        }
     }
 
     protected virtual void CheckPathing()
     {
-        Debug.Log("in check Pathing");
         // horizontal
         CreateCellPath(1, 0, mMovement.x);
         CreateCellPath(-1, 0, mMovement.x);
@@ -95,11 +124,38 @@ public class BasePiece: EventTrigger
         //lower diagonal
         CreateCellPath(-1, -1, mMovement.z);
         CreateCellPath(1, -1, mMovement.z);
+
+        if(level == 2)
+        {
+            CreateCellPathLv2(1, 0, mMovement2.x);
+            CreateCellPathLv2(-1, 0, mMovement2.x);
+            //vertical
+            CreateCellPathLv2(0, 1, mMovement2.y);
+            CreateCellPathLv2(0, -1, mMovement2.y);
+            //upper diagonal
+            CreateCellPathLv2(1, 1, mMovement2.z);
+            CreateCellPathLv2(-1, 1, mMovement2.z);
+            //lower diagonal
+            CreateCellPathLv2(-1, -1, mMovement2.z);
+            CreateCellPathLv2(1, -1, mMovement2.z);
+        }
+    }
+
+    private bool MatchesState(int targetX, int targetY, CellSate targetState)
+    {
+        CellSate cellstate = CellSate.None;
+        cellstate = currentCell.mBoard.ValidateCell(targetX, targetY, this);
+
+        if (cellstate == targetState)
+        {
+            mHighLightedCells.Add(currentCell.mBoard.mAllCells[targetX, targetY]);
+            return true;
+        }
+        return false;
     }
 
     protected void ShowCells()
     {
-        Debug.Log("in check show cells");
         foreach (Cell cell in mHighLightedCells)
         {
             cell.mOutLineImage.enabled = true;
@@ -117,7 +173,7 @@ public class BasePiece: EventTrigger
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("in begindrag");
+        Debug.Log("piece level " + level);
         base.OnBeginDrag(eventData);
         //test for cells
         CheckPathing();
@@ -127,8 +183,14 @@ public class BasePiece: EventTrigger
 
     public virtual void Move()
     {
-        //if enemy piece, remove
+        //if enemy piece, remove & level up piece
+        CellSate takenCell = targetCell.mBoard.ValidateCell(targetCell.mBoardPos.x, targetCell.mBoardPos.y, targetCell.mCurrentPiece);
         targetCell.RemovePiece();
+        if (takenCell == CellSate.Friendly)  // Friendly cause it compares the piece color to the color of the piece on the square
+         {
+             currentCell.mCurrentPiece.LevelUp();
+         }
+
         //clear current cell
         currentCell.mCurrentPiece = null;
         //switch cells
@@ -141,7 +203,6 @@ public class BasePiece: EventTrigger
 
     public override void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("in onDrag");
         base.OnDrop(eventData);
         //follow pointer
         transform.position += (Vector3)eventData.delta;
@@ -155,6 +216,10 @@ public class BasePiece: EventTrigger
             }
             // if mouse is not in a highlighted cell we dont have a valid move
             targetCell = null;
+        }
+        if (Input.GetKeyDown("k"))
+        {
+            Kill();
         }
     }
 
@@ -178,4 +243,39 @@ public class BasePiece: EventTrigger
         mPieceManager.SwitchSides(mColor);
     }
 
+    //////////////////////////////////////// my stuff
+    
+    public int GetLevel()
+    {
+        return level;
+    }
+
+    public void LevelUp()
+    {
+        if(level < 3)
+        {
+            level += 1;
+               
+            if (level == 2)
+            {
+                SelectUpgrade();
+            }
+            if(level == 3)
+            {
+                FinalUpgrade();
+            }
+
+        }
+    }
+    
+    public virtual void SelectUpgrade()
+    {
+        //mMovement = new Vector3Int(7, 7, 7);
+    }
+
+    public virtual void FinalUpgrade()
+    {
+
+    }
+    
 }

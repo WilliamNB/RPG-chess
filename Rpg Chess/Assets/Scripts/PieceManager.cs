@@ -10,13 +10,13 @@ public class PieceManager : MonoBehaviour
     private List<BasePiece> mWhitePieces;
     private List<BasePiece> mBlackPieces;
     [HideInInspector]
-    public bool isKingAlive = true;
 
-    private string[] mPieceOrder = new string[16]
-    {
-        "p", "p", "p", "p", "p", "p", "p", "p",
-        "r", "kn", "b", "k", "q", "b", "kn", "r"
-    };
+    public bool isKingAlive = true;
+        private string[] mPieceOrder = new string[16]
+        {
+            "p", "p", "p", "p", "p", "p", "p", "p",
+            "r", "kn", "b", "k", "q", "b", "kn", "r"
+        };
 
     private Dictionary<string, Type> pieceLibary = new Dictionary<string, Type>()
     {
