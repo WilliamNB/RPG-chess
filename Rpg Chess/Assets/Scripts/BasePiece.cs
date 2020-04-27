@@ -86,7 +86,7 @@ public class BasePiece: EventTrigger
 
     }
 
-    private void CreateCellPathLv2(int xDirection, int yDirection, int movement)
+    protected void CreateCellPathLv2(int xDirection, int yDirection, int movement)
     {
         int currentXPos = currentCell.mBoardPos.x;
         int currentYPos = currentCell.mBoardPos.y;
@@ -125,20 +125,6 @@ public class BasePiece: EventTrigger
         CreateCellPath(-1, -1, mMovement.z);
         CreateCellPath(1, -1, mMovement.z);
 
-        if(level == 2)
-        {
-            CreateCellPathLv2(1, 0, mMovement2.x);
-            CreateCellPathLv2(-1, 0, mMovement2.x);
-            //vertical
-            CreateCellPathLv2(0, 1, mMovement2.y);
-            CreateCellPathLv2(0, -1, mMovement2.y);
-            //upper diagonal
-            CreateCellPathLv2(1, 1, mMovement2.z);
-            CreateCellPathLv2(-1, 1, mMovement2.z);
-            //lower diagonal
-            CreateCellPathLv2(-1, -1, mMovement2.z);
-            CreateCellPathLv2(1, -1, mMovement2.z);
-        }
     }
 
     private bool MatchesState(int targetX, int targetY, CellSate targetState)

@@ -13,32 +13,24 @@ public class Bishop : BasePiece
         GetComponent<Image>().sprite = Resources.Load<Sprite>("T_Bishop");
     }
 
-    private bool MatchesState(int targetX, int targetY, CellSate targetState)
-    {
-        CellSate cellstate = CellSate.None;
-        cellstate = currentCell.mBoard.ValidateCell(targetX, targetY, this);
-
-        if (cellstate == CellSate.Free)
-        {
-            mHighLightedCells.Add(currentCell.mBoard.mAllCells[targetX, targetY]);
-        }
-        return false;
-    }
-
     protected override void CheckPathing()
     {
         base.CheckPathing();
-        
-        int currentX = currentCell.mBoardPos.x;
-        int currentY = currentCell.mBoardPos.y;
 
-        switch (branch) 
+        if (level == 2)
         {
-            case 1:
-                MatchesState(currentX, currentY + mMovement.y, CellSate.None);
-                break;
+            CreateCellPathLv2(1, 0, mMovement2.x);
+            CreateCellPathLv2(-1, 0, mMovement2.x);
+            //vertical
+            CreateCellPathLv2(0, 1, mMovement2.y);
+            CreateCellPathLv2(0, -1, mMovement2.y);
+            //upper diagonal
+            CreateCellPathLv2(1, 1, mMovement2.z);
+            CreateCellPathLv2(-1, 1, mMovement2.z);
+            //lower diagonal
+            CreateCellPathLv2(-1, -1, mMovement2.z);
+            CreateCellPathLv2(1, -1, mMovement2.z);
         }
-        
     }
 
     public override void SelectUpgrade()
@@ -69,7 +61,5 @@ public class Bishop : BasePiece
         }
 
     }
-
-
 
 }
