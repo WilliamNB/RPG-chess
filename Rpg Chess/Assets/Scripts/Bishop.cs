@@ -19,17 +19,12 @@ public class Bishop : BasePiece
 
         if (level == 2)
         {
+            //horizontal
             CreateCellPathLv2(1, 0, mMovement2.x);
             CreateCellPathLv2(-1, 0, mMovement2.x);
             //vertical
             CreateCellPathLv2(0, 1, mMovement2.y);
             CreateCellPathLv2(0, -1, mMovement2.y);
-            //upper diagonal
-            CreateCellPathLv2(1, 1, mMovement2.z);
-            CreateCellPathLv2(-1, 1, mMovement2.z);
-            //lower diagonal
-            CreateCellPathLv2(-1, -1, mMovement2.z);
-            CreateCellPathLv2(1, -1, mMovement2.z);
         }
     }
 

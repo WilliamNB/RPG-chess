@@ -54,7 +54,7 @@ public class BasePiece: EventTrigger
         gameObject.SetActive(false);
     }
 
-    private void CreateCellPath(int xDirection, int yDirection, int movement) 
+    protected void CreateCellPath(int xDirection, int yDirection, int movement) 
     {
         int currentXPos = currentCell.mBoardPos.x;
         int currentYPos = currentCell.mBoardPos.y;
