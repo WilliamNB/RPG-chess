@@ -157,6 +157,15 @@ public class BasePiece: EventTrigger
         mHighLightedCells.Clear();
     }
 
+    public override void OnPointerDown(PointerEventData eventData)
+    {
+        base.OnPointerDown(eventData);
+        //test for cells
+        CheckPathing();
+        //show cells
+        ShowCells();
+    }
+    /*
     public override void OnBeginDrag(PointerEventData eventData)
     {
         Debug.Log("piece level " + level);
@@ -166,7 +175,7 @@ public class BasePiece: EventTrigger
         //show cells
         ShowCells();
     }
-
+    */
     public virtual void Move()
     {
         //if enemy piece, remove & level up piece
